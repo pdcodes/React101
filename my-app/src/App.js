@@ -12,6 +12,7 @@ function App() {
         <p>
           Congrats! You just launched a react app! Woo!
         </p>
+        <button>Switch Name</button>
         <Person name="Peter" age="30">
           My hobbies include soccer, running, and yoga.
         </Person>
