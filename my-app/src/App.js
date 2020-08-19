@@ -11,7 +11,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <p>
-          Congrats! You just launched a react app!
+          Congrats! You just launched a react app! Woo!
         </p>
         <a
           className="App-link"
