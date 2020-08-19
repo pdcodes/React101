@@ -1,29 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Person from './Components/Person/Person';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <p>
           Congrats! You just launched a react app! Woo!
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Person name="Peter" age="30">
+          My hobbies include soccer, running, and yoga.
+        </Person>
+        <Person name="Paula" age="27"></Person>
       </header>
     </div>
   );
+
+  // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m a React App!'));
 }
 
 export default App;
