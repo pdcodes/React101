@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { Component, /* useState */ } from 'react';
 import './App.css';
 import Person from './Components/Person/Person';
 
+/*
+There are a few ways to implement components:
+- As functional components with static values
+- As functional components with dynamic values managed by state and hooks
+- As class-based components
+*/
+
+
+// This is the newer way to implement component - as a functional component
+// This implementation does not have the ability to manage state
+/*
 function App() {
   return (
     <div className="App">
@@ -20,8 +31,70 @@ function App() {
       </header>
     </div>
   );
+}
+*/
 
-  // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m a React App!'));
+// This is a functional component with state managed via hooks
+// This requires an import of 'useState'
+/*
+const App = props => {
+  const [ personsState, setPersonsState ] = useState({
+    persons: [
+      { name: 'Peter', age: 30 },
+    ]
+  });
+
+const switchNameHandler = () => {
+  setPersonsState( {
+    persons: [
+      { name: 'Mitch', age: 45 },
+    ]
+  })
+}
+  return (
+    <div className="App">
+    <header className="App-header">
+      <h1>Hi, I'm a React App that uses hooks to manage state.</h1>
+      <p>This is really working!</p>
+      <button onClick={switchNameHandler}>Switch Name</button>
+      <Person name={personsState.persons[0].name} age={personsState.persons[0].age} />
+    </header>
+    </div>
+  )
+}
+*/
+
+// This is the original way to implement components - as classes
+// This requires an import of 'Component'
+// What's included below is referred to as a container, state-ful, or smart component
+// You generally want less of these because it's challenging to keep track of state across an app
+class App extends Component {
+  state = {
+    persons: [
+      { name: 'Peter', age: 30 },
+    ]
+  }
+
+  switchNameHandler = () => {
+    this.setState( {
+      persons: [
+        { name: 'Mitch', age: 45 },
+      ]
+    })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1>Hi, I'm a React App with a class-based component.</h1>
+          <p>This is really working!</p>
+          <button onClick={this.switchNameHandler}>Switch Name</button>
+          <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
+        </header>
+      </div>
+    )
+  }
 }
 
 export default App;
