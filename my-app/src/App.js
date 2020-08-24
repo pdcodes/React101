@@ -1,6 +1,7 @@
 import React, { Component, /* useState */ } from 'react';
 import './App.css';
 import Person from './Components/Person/Person';
+import ImmutablePerson from './Components/ImmutablePerson/ImmutablePerson';
 
 /*
 There are a few ways to implement components:
@@ -69,16 +70,30 @@ const switchNameHandler = () => {
 // What's included below is referred to as a container, state-ful, or smart component
 // You generally want less of these because it's challenging to keep track of state across an app
 class App extends Component {
-  state = {
-    persons: [
-      { name: 'Peter', age: 30 },
-    ]
+  constructor(props) {
+    super(props)
+    this.state = {
+      persons: [
+        { name: 'Peter', age: 30 },
+        { name: 'Paula', age: 27 }
+      ]
+    }
   }
 
   switchNameHandler = () => {
     this.setState( {
       persons: [
         { name: 'Mitch', age: 45 },
+        { name: 'Niles', age: 7 }
+      ]
+    })
+  }
+
+  nameChangedHandler = (event) => {
+    this.setState( {
+      persons: [
+        { name: event.target.value, age: 30 },
+        { name: 'Natalie', age: 7 }
       ]
     })
   }
@@ -90,7 +105,18 @@ class App extends Component {
           <h1>Hi, I'm a React App with a class-based component.</h1>
           <p>This is really working!</p>
           <button onClick={this.switchNameHandler}>Switch Name</button>
-          <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
+          <Person 
+            name={this.state.persons[0].name} 
+            age={this.state.persons[0].age}
+            // You can path methods as props
+            // This allows you to pass methods between components
+            click={this.switchNameHandler}
+            changed={this.nameChangedHandler}
+          />
+          <ImmutablePerson 
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+          />
         </header>
       </div>
     )
