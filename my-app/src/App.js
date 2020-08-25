@@ -99,12 +99,21 @@ class App extends Component {
   }
 
   render() {
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    }
     return (
       <div className="App">
         <header className="App-header">
           <h1>Hi, I'm a React App with a class-based component.</h1>
           <p>This is really working!</p>
-          <button onClick={this.switchNameHandler}>Switch Name</button>
+          <button 
+            style={style}
+            onClick={this.switchNameHandler}>Switch Name</button>
           <Person 
             name={this.state.persons[0].name} 
             age={this.state.persons[0].age}
