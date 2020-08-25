@@ -5,7 +5,7 @@ import UserOutput from './Components/UserOutput/UserOutput';
 
 class App extends Component {
   state = {
-    username: 'Jake'
+    username: 'John'
   }
 
   handleStateChange = (event) => {
@@ -17,10 +17,10 @@ class App extends Component {
         <header className="App-header">
           <p>Here is my work for assignment #1!</p>
           <UserInput 
-            changed={this.handleStateChange}
-            currentName={this.state.username} />
-          <UserOutput username={this.state.username} changed={this.handleStateChange} />
-          <UserOutput username={this.state.username} changed={this.handleStateChange} />
+            onChange={this.handleStateChange}
+            currentUsername={this.state.username} />
+          <UserOutput username={this.state.username} />
+          <UserOutput username={this.state.username} />
           <UserOutput username={"Peter"} />
         </header>
       </div>
