@@ -6,3 +6,12 @@
     padding: 16px;
     text-align: center;
 }
+
+.Person button {
+    border: 1px solid green;
+    background-color: green;
+    border-radius: 2px;
+    color: white;
+    margin: 15px auto 0px auto;
+    display: block;
+}
