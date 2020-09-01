@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -78,7 +79,10 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid green',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      // With Radium added, we can add pseudo-selectors in the format
+      // ':selector': { style1: value, style2: value }
+      ':hover': { backgroundColor: 'blue', border: '1px solid blue', color: 'pink' }
     };
 
     let persons = null;
@@ -104,7 +108,10 @@ class App extends Component {
 
       // We can also edit the style object on the fly to alter our display 
       // based on the state of our data
-      style.backgroundColor = 'red';
+      style.backgroundColor = 'red'
+
+      // Adding pseudo-selectors as part of an array with Radium
+      style[':hover'] = { backgroundColor: 'black', color: 'white' };
     }
 
     /* Here we're going to dynamically assign certain classes to our <p> tag below */
@@ -123,21 +130,24 @@ class App extends Component {
 
     /* Actual UI code goes within the return statement of the component */
     return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        {/* 
-          Whatever classes have been added to our container,
-          join them into a space-delimited list to make up our
-          dynamic list of inline styles that are applied
-        */}
-        <p className={classes.join(' ')}>This is really working!</p>
-        <button
-          style={style}
-          onClick={this.togglePersonsHandler}>Toggle Persons</button>
-        {persons}
-      </div>
+      <StyleRoot>
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          {/* 
+            Whatever classes have been added to our container,
+            join them into a space-delimited list to make up our
+            dynamic list of inline styles that are applied
+          */}
+          <p className={classes.join(' ')}>This is really working!</p>
+          <button
+            style={style}
+            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          {persons}
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+// Exporting App as a higher-order component by passing it to Radium
+export default Radium(App);
