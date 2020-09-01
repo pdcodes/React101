@@ -16,7 +16,8 @@ class App extends Component {
   }
 
   /* Methods within the class provide ways of accessing and manipulating state */
-  /* This is analogous to ruby's controller and django's view */
+  /* This is analogous to ruby's controller and django's view and  */
+  /* and supporting files containing logic that is imported */
   nameChangedHandler = ( event, id ) => {
     // Find the index value where the id of the person we have updated
     // equals the id of the person we want to change
@@ -69,7 +70,8 @@ class App extends Component {
   /* This is analogous to ruby's view and django's templates */
   render () {
 
-    // Here's how we style our button
+    // Here's how we style our button the simple way
+    // but this has limitations (like no media queries and pseudo-selectors)
     const style = {
       backgroundColor: 'green',
       color: 'white',
@@ -84,9 +86,9 @@ class App extends Component {
     // If showPersons is true, then output our block of Person components
     if ( this.state.showPersons ) {
       persons = (
-        // Map our state opject into a persons array
+        // Map our persons array from our state object into a persons array
         // so that we can simply output a new <Person/> component
-        // with our parameters
+        // for each element in the persons array
         // This is the common pattern of outputting lists in React
         <div>
           {this.state.persons.map((person, index) => {
@@ -99,13 +101,36 @@ class App extends Component {
           })}
         </div>
       );
+
+      // We can also edit the style object on the fly to alter our display 
+      // based on the state of our data
+      style.backgroundColor = 'red';
+    }
+
+    /* Here we're going to dynamically assign certain classes to our <p> tag below */
+    /* We still can't use pseudo-selectors here (lame!) */
+
+    // Define a containr to hold our classes
+    let classes = []
+
+    // Add some logic to figure out which classes we should add based on our state
+    if ( this.state.persons.length <= 2 ) {
+      classes.push('red'); // classes = ['red']
+    }
+    if ( this.state.persons.length <= 1 ) {
+      classes.push('bold'); // classes = ['red', 'bold']
     }
 
     /* Actual UI code goes within the return statement of the component */
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
-        <p>This is really working!</p>
+        {/* 
+          Whatever classes have been added to our container,
+          join them into a space-delimited list to make up our
+          dynamic list of inline styles that are applied
+        */}
+        <p className={classes.join(' ')}>This is really working!</p>
         <button
           style={style}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>

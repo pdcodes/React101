@@ -8,3 +8,11 @@
 .App button {
   border-radius: 3px;
 }
+
+.red {
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
