@@ -5,32 +5,32 @@ import Character from './Components/Character';
 
 class App extends Component {
   state = {
-    inputText: [],
+    inputText: '',
   }
 
-  inputCounter = (event) => {
+  inputHandler = (event) => {
     const myInput = event.target.value;
-    // const myInputLength = myInput.length;
-
-    this.setState({ inputLength: myInputLength })
+    this.setState({ inputText: myInput });
   }
 
-  inputUpdater = (event) => {
-    const myInputText = event.target.value;
-
-    this.setState({ inputText: myInputText })
+  deleteCharHandler = (index) => {
+    const text = this.state.inputText.split('');
+    text.splice( index, 1 );
+    const updatedText = text.join('');
+    this.setState({ inputText: updatedText })
   }
 
   render () {
 
     let characterBlock = <p>There is no text to display!</p>;
 
-    if ( this.state.inputLength > 0 ) {
-      const characters = this.state.inputText;
-      let characterArray = characters.split('');
+    if ( this.state.inputText.length > 0 ) {
+      const characterArray = this.state.inputText.split('');
       characterBlock = (
         <div>
-          <p>{characterArray}</p>
+          {characterArray.map((character, index) => {
+            return <Character letter={character} key={index} clicked={() => this.deleteCharHandler(index)} />
+          })}
         </div>
       );
     }
@@ -47,10 +47,10 @@ class App extends Component {
           <p>
             <code>This is assignment #2!</code>
             <span style={spanStyle}>Here is my input field:</span>
-            <input type="text" onChange={this.inputCounter} />
+            <input type="text" value={this.state.inputText} onChange={this.inputHandler} />
           </p>
-          <p>There are {this.state.inputLength} characters in the input field!</p>
-          <Validation text={this.state.inputText} />
+          <p>There are {this.state.inputText.length} characters in the input field!</p>
+          <Validation textLength={this.state.inputText.length} textInput={this.state.inputText} />
           {characterBlock}
         </header>
       </div>

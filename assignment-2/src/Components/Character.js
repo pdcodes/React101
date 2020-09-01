@@ -6,11 +6,12 @@ const character = ( props ) => {
         padding: '16px',
         textAlign: 'center',
         margin: '16px',
-        border: '1px solid teal'
+        border: '1px solid teal',
+        color: 'white'
     }
 
     return (
-        <div style={characterStyles}>
+        <div style={characterStyles} onClick={props.clicked}>
             <p>{props.letter}</p>
         </div>
     )

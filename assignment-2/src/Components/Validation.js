@@ -1,8 +1,9 @@
 import React from 'react';
 
 const validation = ( props ) => {
-    const textLength = props.length;
+    const textLength = props.textLength;
     const lengthThreshold = 8;
+    let enteredText = textLength > 0 ? props.textInput : 'empty';
     let returnedText = textLength <= lengthThreshold ? 'Text is too short!' : 'Text is long enough!';
     const returnedTextStyles = {
         color: 'white',
@@ -11,7 +12,7 @@ const validation = ( props ) => {
 
     return (
         <div>
-            <p>The inputted text is <em>{props.input}</em>.</p>
+            <p>The entered text is <em>{enteredText}</em>.</p>
             <p style={returnedTextStyles}>{returnedText}</p>
         </div>
     )
