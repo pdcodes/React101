@@ -1,7 +1,25 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
 import './App.css';
-import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
+
+// Note: title case when you want to use it as a component!
+// Use normal CSS syntax here and SASS conventions when adding pseudo-selectors
+const StyledButton = styled.button`
+  background-color: green;
+  color: white;
+  font: inherit;
+  border: 1px solid green;
+  padding: 8px;
+  cursor: pointer;
+  
+  &:hover { 
+    background-color: blue; 
+    border: 1px solid blue; 
+    color: pink; 
+  }
+`;
 
 class App extends Component {
   /* State is where all of our data is stored */
@@ -70,21 +88,6 @@ class App extends Component {
   /* Styling and templating logic go within the render() method */
   /* This is analogous to ruby's view and django's templates */
   render () {
-
-    // Here's how we style our button the simple way
-    // but this has limitations (like no media queries and pseudo-selectors)
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid green',
-      padding: '8px',
-      cursor: 'pointer',
-      // With Radium added, we can add pseudo-selectors in the format
-      // ':selector': { style1: value, style2: value }
-      ':hover': { backgroundColor: 'blue', border: '1px solid blue', color: 'pink' }
-    };
-
     let persons = null;
 
     // If showPersons is true, then output our block of Person components
@@ -105,13 +108,6 @@ class App extends Component {
           })}
         </div>
       );
-
-      // We can also edit the style object on the fly to alter our display 
-      // based on the state of our data
-      style.backgroundColor = 'red'
-
-      // Adding pseudo-selectors as part of an array with Radium
-      style[':hover'] = { backgroundColor: 'black', color: 'white' };
     }
 
     /* Here we're going to dynamically assign certain classes to our <p> tag below */
@@ -130,24 +126,24 @@ class App extends Component {
 
     /* Actual UI code goes within the return statement of the component */
     return (
-      <StyleRoot>
-        <div className="App">
-          <h1>Hi, I'm a React App</h1>
-          {/* 
-            Whatever classes have been added to our container,
-            join them into a space-delimited list to make up our
-            dynamic list of inline styles that are applied
-          */}
-          <p className={classes.join(' ')}>This is really working!</p>
-          <button
-            style={style}
-            onClick={this.togglePersonsHandler}>Toggle Persons</button>
-          {persons}
-        </div>
-      </StyleRoot>
+      // Wrapping our whole component in StyleRoot to take advantage of media queries
+      // and other advanced features via Radium
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        {/* 
+          Whatever classes have been added to our container,
+          join them into a space-delimited list to make up our
+          dynamic list of inline styles that are applied
+        */}
+        <p className={classes.join(' ')}>This is really working!</p>
+        <StyledButton
+          onClick={this.togglePersonsHandler}>Toggle Persons
+        </StyledButton>
+        {persons}
+      </div>
     );
   }
 }
 
 // Exporting App as a higher-order component by passing it to Radium
-export default Radium(App);
+export default App;
